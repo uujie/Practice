@@ -1,0 +1,8 @@
+{
+    "typeAcquisition": {
+        "include": [
+            "jquery"
+        ]
+    }
+}
+//會跳出更多提示語法
