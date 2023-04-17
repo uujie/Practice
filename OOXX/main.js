@@ -1,6 +1,7 @@
 var board = ["", "", "", "", "", "", "", "", ""]; // 初始化遊戲棋盤
 var player = "X"; // 當前玩家
 var resultDiv = document.getElementById("result"); // 顯示遊戲結果的div
+var restartBtn = document.getElementById("restart-btn");
 
 // 畫出遊戲棋盤
 function drawBoard() {
@@ -16,6 +17,18 @@ function drawBoard() {
     cell.innerHTML = board[i];
     boardDiv.appendChild(cell);
   }
+
+  restartBtn.addEventListener("click", function() {
+    restart();
+  });
+}
+
+// 重新開始遊戲
+function restart() {
+  board = ["", "", "", "", "", "", "", "", ""];
+  player = "X";
+  resultDiv.innerHTML = "";
+  drawBoard();
 }
 
 // 檢查是否有玩家獲勝
@@ -49,30 +62,28 @@ function checkWin(player) {
   }
 }
 
-// 當玩家點擊棋盤時，執行該函數
 function cellClicked(id) {
-  if (board[id] == "") { // 如果該位置沒有棋子
-    board[id] = player; // 在該位置上下
-    // 切換玩家
+  if (board[id] == "") { 
+    board[id] = player; 
     if (player == "X") {
       player = "O";
     }
     else {
       player = "X";
     }
-    drawBoard(); // 重新畫出遊戲棋盤
-    // 檢查遊戲是否結束
+    drawBoard(); 
     if (checkWin("X")) {
       resultDiv.innerHTML = "X獲勝！";
+      restartBtn.style.display = "block";
     }
     else if (checkWin("O")) {
       resultDiv.innerHTML = "O獲勝！";
+      restartBtn.style.display = "block";
     }
     else if (!board.includes("")) {
       resultDiv.innerHTML = "平局！";
-    }
+      restartBtn.style.display = "block";
+    }    
   }
 }
-
-// 初始化遊戲
 drawBoard();
