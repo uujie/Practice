@@ -7,7 +7,8 @@ $(function(){
         courses.push({
             topic: topic[x],
             date: new Date(startDate.getTime() + 7 * x * millisecsPerDay),
-            order: x + 1
+            order: x + 1,
+            isHoliday: false // 預設不是國定假日
         });
     }
     courses.sort(function(a, b) {
@@ -37,7 +38,7 @@ $(function(){
         let dateString = date.toLocaleDateString(undefined, { month: '2-digit', day: '2-digit' });
         let rowCount = $("#courseTable tr").length;
         let order = rowCount; // 不算表頭
-        let isGray = $("#colorCheckbox").is(":checked"); // 是否變紅色
+        let isGray = $("#colorCheckbox").is(":checked"); // 是否變灰色
         let cssClass = isGray ? "gray" : "default";
         let rowHtml = `<tr class="${cssClass}">`+
                         `<td>${order}</td>`+
@@ -51,7 +52,7 @@ $(function(){
             topic: topic,
             date: date,
             order: order,
-            isHoliday: isHoliday // 紀錄是否為特殊日期
+            isHoliday: isGray // 紀錄是否為特殊日期
         });
         courses.sort(function(a, b) {
             return a.date.getTime() - b.date.getTime();
@@ -66,7 +67,5 @@ $(function(){
         }
       
     });
-    
-    
     
 });
